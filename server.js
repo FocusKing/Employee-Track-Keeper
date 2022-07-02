@@ -55,12 +55,49 @@ const init = () => {
         { name: 'View All Employees', value: 'viewAllEmployees' },
         { name: 'Add an Employee', value: 'addAnEmployee' },
         { name: 'Remove an Empolyee', value: 'removeAnEmployee' },
+        { name: 'View All Roles', value: 'viewAllRoles' },
+        { name: 'View All Departments', value: 'viewAllDepartments' },
+        { name: 'Add a Department', value: 'addADepartment' },
+        { name: 'Update An Employee Role', value: 'updateAnEmployeeRole' },
         { name: 'Exit', value: 'exit' },
       ],
       
   
     }
-  ]).then((answers) => {fn[answers.query]();});
-};
+  ]).then((selected) => {
+    switch (selected.startApp) {
+      case "view all departments":
+        viewAllDepts();
+        break;
 
-init();
+      case "view all roles":
+        viewAllRoles();
+        break;
+
+      case "view all employees":
+        viewAllEmployees();
+        break;
+
+      case "add a department":
+        addDept();
+        break;
+
+      case "add a role":
+        addRole();
+        break;
+
+      case "add an employee":
+        addEmployee();
+        break;
+
+      case "update an employee role":
+        updateRole();
+        break;
+
+      case "exit app":
+        process.exit();
+        break;
+    };
+    return;
+  });
+};

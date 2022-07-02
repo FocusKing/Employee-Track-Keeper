@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS employees_db;
 CREATE DATABASE employees_db;
 
-USE employee_db;
+USE employees_db;
 -- unsigned means id will always be positive.
 CREATE TABLE department (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
