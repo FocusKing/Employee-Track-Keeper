@@ -9,7 +9,7 @@ const db = mysql.createConnection(
     password: '',
     database: 'classlist_db'
   },
-  console.log(`Connected to the employees_db database.`)
+  // console.log(`Connected to the employees_db database.`)
 );
 
 const init = () => {
@@ -30,7 +30,7 @@ const init = () => {
       ], 
     }
   ]).then((selected) => {
-    switch (selected.startApp) {
+    switch (selected.init) {
       case "view all departments":
         viewAllDepts();
         break;
