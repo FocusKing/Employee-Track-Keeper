@@ -18,9 +18,9 @@ VALUES ("VP of Operations", 250000, 1),
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ("Cris", "Carter", 1, null),
        ("Ocho", "Cinco", 2, 1),
-       ("Randy", "Moss",3, 2),
+       ("Randy", "Moss",3, NULL),
        ("Jerry", "Rice", 4, 2),
-       ("Steve", "Smith", 5, 3),
+       ("Steve", "Smith", 5, NULL),
        ("Calvin", "Johnson", 5, 2),
        ("Larry", "Fitz", 6, 2);
        
