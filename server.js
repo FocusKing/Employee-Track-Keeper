@@ -15,6 +15,53 @@ db.connect(function (err) {
   if (err) throw err;
   init();
 });
+
+const init = () => {
+  const choices = [
+    'View All Employees',
+    'Add Employee',
+    'Update Employee Role',
+    'View All Roles',
+    'Add Role',
+    'View All Departments',
+    'Add Department',
+    'Exit',
+  ]
+  inquirer.prompt([{
+      type: 'rawlist',
+      name: 'query',
+      message: 'What what you like to do?',
+      choices,
+    }
+
+  ]).then(data => {
+    if (data.query === 'View All Employees') {
+      allEmployees();
+    };
+    if (data.query === 'Add Employee') {
+      addEmployee();
+    };
+    if (data.query === "Update Employee Role") {
+      updateRole();
+    };
+    if (data.query === "View All Roles") {
+      allRoles();
+    };
+    if (data.query === "Add Role") {
+      addRole();
+    };
+    if (data.query === "View All Departments") {
+      allDepartments();
+    };
+    if (data.query === "Add Department") {
+      addDepartment();
+    };
+    if (data.query === "Exit") {
+      db.end();
+    };
+  })
+};
+
 // followed along with instructor
 const allEmployees = () => {
   db.query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id =department.id LEFT JOIN employee manager ON manager.id = employee.manager_id',
@@ -185,48 +232,52 @@ const updateRole = () => {
     });
   });
 }
-const init = () => {
-  const choices = [
-    'View All Employees',
-    'Add Employee',
-    'Update Employee Role',
-    'View All Roles',
-    'Add Role',
-    'View All Departments',
-    'Add Department',
-    'Exit',
-  ]
-  inquirer.prompt([{
-      type: 'rawlist',
-      name: 'query',
-      message: 'What what you like to do?',
-      choices,
-    }
+// const init = () => {
+//   const choices = [
+//     'View All Employees',
+//     'Add Employee',
+//     'Update Employee Role',
+//     'View All Roles',
+//     'Add Role',
+//     'View All Departments',
+//     'Add Department',
+//     'Exit',
+//   ]
+//   inquirer.prompt([{
+//       type: 'rawlist',
+//       name: 'query',
+//       message: 'What what you like to do?',
+//       choices,
+//     }
 
-  ]).then(data => {
-    if (data.query === 'View All Employees') {
-      allEmployees();
-    };
-    if (data.query === 'Add Employee') {
-      addEmployee();
-    };
-    if (data.query === "Update Employee Role") {
-      updateRole();
-    };
-    if (data.query === "View All Roles") {
-      allRoles();
-    };
-    if (data.query === "Add Role") {
-      addRole();
-    };
-    if (data.query === "View All Departments") {
-      allDepartments();
-    };
-    if (data.query === "Add Department") {
-      addDepartment();
-    };
-    if (data.query === "Exit") {
-      db.end();
-    };
-  })
-};
+//   ]).then(data => {
+//     if (data.query === 'View All Employees') {
+//       allEmployees();
+//     };
+//     if (data.query === 'Add Employee') {
+//       addEmployee();
+//     };
+//     if (data.query === "Update Employee Role") {
+//       updateRole();
+//     };
+//     if (data.query === "View All Roles") {
+//       allRoles();
+//     };
+//     if (data.query === "Add Role") {
+//       addRole();
+//     };
+//     if (data.query === "View All Departments") {
+//       allDepartments();
+//     };
+//     if (data.query === "Add Department") {
+//       addDepartment();
+//     };
+//     if (data.query === "Exit") {
+//       db.end();
+//     };
+//   })
+// };
+
+
+
+init();
