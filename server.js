@@ -17,36 +17,6 @@ db.connect(function (err) {
   init();
 });
 
-const init = () => {
-  const choices = [
-    'View All Employees',
-    'Add Employee',
-    'Update Employee Role',
-    'View All Roles',
-    'Add Role',
-    'View All Departments',
-    'Add Department',
-    'Exit',
-    
-  ]
-  inquirer.prompt([{
-      type: 'rawlist',
-      name: 'query',
-      message: 'What what you like to do?',
-      choices,
-    }
-
-  ]).then(data => {
-    if (data.query === "View All Employees") { viewAllEmployees(); };
-            if (data.query === "View All Roles") { viewAllRoles(); };
-            if (data.query === "View All Departments") { viewAllDepartments(); };
-            if (data.query === "Add An Employee") { return addAnEmployee(); };
-            if (data.query === "Add A Role") { addARole(); };
-            if (data.query === "Add A Department") { addADepartment(); };
-            if (data.query === "Update An Employee Role") { updateAnEmployeeRole(); };
-            if (data.query === "Exit") { db.end(); };
-  })
-};
 
 // followed along with instructor
 const viewAllEmployees = () => {
@@ -74,7 +44,7 @@ const viewAllDepartments = () => {
   });
 }
 
-const addEmployee = () => {
+const addAnEmployee = () => {
   db.query('SELECT employee.id, CONCAT(employee.first_name, " ", employee.last_name) AS employee, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id', function (err, results) {
     if (err) return console.error(err);
   const employeeChoices = res.map(({
@@ -134,7 +104,7 @@ const employeeRolePrompt = (employeeChoices, roleChoices) =>
   });
 });
 
-const addRole = () => {
+const addARole = () => {
   db.query(`SELECT d.id, d.name, r.salary 
   FROM employee e
   JOIN role r
@@ -178,7 +148,7 @@ const addRole = () => {
 }
 // help from classmate
 
-const addDepartment = () => {
+const addADepartment = () => {
   inquirer.prompt([{
     type: 'input',
     name: 'departmentName',
@@ -211,6 +181,7 @@ const updateRole = () => {
         name: title,
         value: id
       }));
+
       inquirer.prompt([{
           type: 'list',
           name: 'updateEmployee',
@@ -234,4 +205,33 @@ const updateRole = () => {
   });
 }
 
-init();
+const init = () => {
+  const choices = [
+    'View All Employees',
+    'Add Employee',
+    'Update Employee Role',
+    'View All Roles',
+    'Add Role',
+    'View All Departments',
+    'Add Department',
+    'Exit',
+    
+  ]
+  inquirer.prompt([{
+      type: 'rawlist',
+      name: 'query',
+      message: 'What what you like to do?',
+      choices,
+    }
+
+  ]).then(data => {
+    if (data.query === "View All Employees") { viewAllEmployees(); };
+            if (data.query === "View All Roles") { viewAllRoles(); };
+            if (data.query === "View All Departments") { viewAllDepartments(); };
+            if (data.query === "Add An Employee") { return addAnEmployee(); };
+            if (data.query === "Add A Role") { addARole(); };
+            if (data.query === "Add A Department") { addADepartment(); };
+            if (data.query === "Update An Employee Role") { updateAnEmployeeRole(); };
+            if (data.query === "Exit") { db.end(); };
+  })
+};
