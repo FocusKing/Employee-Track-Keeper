@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "seed": "node seeds/seed.js"
+    "seed": "node seeds/server.js"
   },
   "name": "employee-track-keeper",
   "description": "[GitHubLink]https://github.com/FocusKing/Employee-Track-Keeper\r ## Badges\r ![stayCLEAN](https://img.shields.io/badge/stay-CLEAN-blue)",
