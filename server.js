@@ -27,7 +27,7 @@ const startApp = () => {
         "add a department",
         "add a role",
         "add an employee",
-        "update an employee role",
+        "update employee role",
         "exit app",
       ]
     }).then((selected) => {
@@ -151,17 +151,23 @@ SELECT * FROM department`, function (err, depts) {
 
 // add additional employees
 const addAnEmployee = () => {
-    db.query(`SELECT
-  id AS value,
-  title AS name
-  FROM role`, (err, roles) => {
-      db.query(`
-    SELECT 
-    id AS value,
-    CONCAT(first_name, " ", last_name) AS name 
-    FROM employee;`, function (err, managers) {
-        if (err) return console.log(err);
+  console.log('Add employee')
+  const query =
+  //Collabrated with a classmate to find query solution
+    `SELECT r.id, r.title, r.salary
+      FROM role r`
+  db.query(query, function (error, res) {
+    if (error) throw error;
 
+    const seletRole = res.map(({ id, title, salary }) => ({
+      value: id, title: `${title}`, salary: `${salary}`
+    }));
+    console.table(res);
+    addEmpPropmt(seletRole);
+  })
+}
+        
+const addEmpPropmt = (selectRole) => {
         inquirer.prompt([{
             type: 'input',
             name: 'first_name',
@@ -176,15 +182,8 @@ const addAnEmployee = () => {
             type: 'list',
             name: 'role',
             message: 'What is the role of the employee?',
-            choices: roles
+            choices: selectRole
           },
-          {
-            type: 'list',
-            name: 'manager',
-            message: 'Who is the manager of the employee?',
-            choices: managers ({
-            }),
-          }
         ]).then((newEmployee) => {
           db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)', [answer.employeeFirstName, answer.employeeLastName, answer.employeeRoleId, answer.employeeManagerID], function (err, res) {
             if (err) return console.log(err);
@@ -192,10 +191,11 @@ const addAnEmployee = () => {
             startApp();
           })
         });
-      });
-    });
+}
+  
     // Update employee Role
-    const updateRole = () => {
+const updateRole = () => {
+  updateRole =require();
         inquirer
           .prompt([{
               type: "input",
@@ -211,7 +211,7 @@ const addAnEmployee = () => {
               const updateEmployee = res.updated_id;
               const selectNewRole = res.update_role;
 
-              db.query(`UPDATE employee SET role_id = ${selectNewRole} WHERE id = ${updateEmploy};`,
+              db.query(`UPDATE employee SET role_id = ${selectNewRole} WHERE id = ${updateEmployee};`,
                 function (err) {
                   if (err) return console.log(err);
                   console.log(`New employee ${res.role_id} added!`);
@@ -239,6 +239,6 @@ const addAnEmployee = () => {
                   startApp();
                 })
               }
-            }
+            
 
               startApp();
