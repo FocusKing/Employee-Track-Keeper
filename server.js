@@ -164,27 +164,25 @@ const addAnEmployee = () => {
 
         inquirer.prompt([{
             type: 'input',
-            name: 'employeeFirstName',
+            name: 'first_name',
             message: 'What is the first name of the employee you would like to add?'
           },
           {
             type: 'input',
-            name: 'employeeLastName',
+            name: 'last_name',
             message: 'What is the last name of the employee?'
           },
           {
             type: 'list',
-            name: 'employeeRoleId',
+            name: 'role',
             message: 'What is the role of the employee?',
-            choices: roleChoices
+            choices: roles
           },
           {
             type: 'list',
-            name: 'employeeManagerId',
+            name: 'manager',
             message: 'Who is the manager of the employee?',
-            choices: employeeChoices.concat({
-              name: 'No Manager',
-              value: null
+            choices: managers ({
             }),
           }
         ]).then((newEmployee) => {
