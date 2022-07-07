@@ -76,16 +76,17 @@ const viewAllDepartments = () => {
   });
 }
 const viewAllRoles = () => {
-  db.query('SELECT * FROM role', function (err, roles) {
-    if (err) return console.error(err);
+  db.query(`SELECT * FROM role`, function (err, roles) {
+    if (err) return console.log(err);
     console.table(roles);
     startApp();
   });
 }
 // followed along with instructor
 const viewAllEmployees = () => {
-  db.query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id =department.id LEFT JOIN employee manager ON manager.id = employee.manager_id',
-    function (err, employees) {
+  db.query(`SELECT * FROM employee`,
+    function (err, employees) 
+    {
       if (err) return console.error(err);
       console.table(employees);
       startApp();
@@ -137,7 +138,7 @@ SELECT * FROM department`, function (err, depts) {
           )
         },
       ]).then((newRole) => {
-        db.query(`INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`, [newRole.title, newRole.roleSalary, newRole.departmentName],
+        db.query(`INSERT INTO role (title, salary, department_id) VALUES`, [newRole.title, newRole.roleSalary, newRole.departmentName],
           function (err) {
             if (err) return console.log(err);
             console.log(`New role ${newRole.title} added!`);
@@ -166,9 +167,9 @@ const addAnEmployee = () => {
     addEmpPropmt(seletRole);
   })
 }
-        
-const addEmpPropmt = (selectRole) => {
-        inquirer.prompt([{
+  const addEmpPropmt = (selectRole) => {
+        inquirer
+        .prompt([{
             type: 'input',
             name: 'first_name',
             message: 'What is the first name of the employee you would like to add?'
@@ -182,16 +183,18 @@ const addEmpPropmt = (selectRole) => {
             type: 'list',
             name: 'role',
             message: 'What is the role of the employee?',
-            choices: selectRole
+            choices: "roles"
+        
           },
         ]).then((newEmployee) => {
-          db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)', [answer.employeeFirstName, answer.employeeLastName, answer.employeeRoleId, answer.employeeManagerID], function (err, res) {
+          db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES', [newEmployee.employeeFirstName, newEmployee.employeeLastName, newEmployee.role, newEmployee.manager], 
+          function (err, res) {
             if (err) return console.log(err);
             console.table(newEmployee);
             startApp();
           })
         });
-}
+      }
   
     // Update employee Role
 const updateRole = () => {

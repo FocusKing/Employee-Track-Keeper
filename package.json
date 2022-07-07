@@ -2,7 +2,8 @@
   "dependencies": {
     "console.table": "^0.10.0",
     "inquirer": "^8.2.4",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "seeds": "^2.3.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,7 +15,6 @@
   "description": "[GitHubLink]https://github.com/FocusKing/Employee-Track-Keeper\r ## Badges\r ![stayCLEAN](https://img.shields.io/badge/stay-CLEAN-blue)",
   "version": "1.0.0",
   "main": "server.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FocusKing/Employee-Track-Keeper.git"
