@@ -87,7 +87,7 @@ const viewAllEmployees = () => {
   db.query(`SELECT * FROM employee`,
     function (err, employees) 
     {
-      if (err) return console.error(err);
+      if (err) return console.log(err);
       console.table(employees);
       startApp();
     });
@@ -152,22 +152,23 @@ SELECT * FROM department`, function (err, depts) {
 
 // add additional employees
 const addAnEmployee = () => {
-  console.log('Add employee')
-  const query =
-  //Collabrated with a classmate to find query solution
-    `SELECT r.id, r.title, r.salary
-      FROM role r`
-  db.query(query, function (error, res) {
-    if (error) throw error;
+  db.query(`
+  SELECT
+  id AS value,
+  title AS name
+  FROM role`, (err, roles) => {
+    db.query(`
+    SELECT 
+    id AS value,
+    CONCAT(first_name, " ", last_name) AS name 
+    FROM employee;`, (err, managers) => {
+      if (err) console.log(err);
+      console.log(roles);
+      console.log(managers);
+    });
 
-    const seletRole = res.map(({ id, title, salary }) => ({
-      value: id, title: `${title}`, salary: `${salary}`
-    }));
-    console.table(res);
-    addEmpPropmt(seletRole);
-  })
-}
-  const addEmpPropmt = (selectRole) => {
+  });
+  
         inquirer
         .prompt([{
             type: 'input',
