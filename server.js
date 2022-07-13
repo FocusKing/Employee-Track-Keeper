@@ -87,7 +87,7 @@ const viewAllEmployees = () => {
   db.query(`SELECT * FROM employee`,
     function (err, employees) 
     {
-      if (err) return console.log(err);
+      if (err) return console.error(err);
       console.table(employees);
       startApp();
     });
@@ -138,7 +138,7 @@ SELECT * FROM department`, function (err, depts) {
           )
         },
       ]).then((newRole) => {
-        db.query(`INSERT INTO role (title, salary, department_id) VALUES`, [newRole.title, newRole.roleSalary, newRole.departmentName],
+        db.query(`INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`, [newRole.title, newRole.roleSalary, newRole.departmentName],
           function (err) {
             if (err) return console.log(err);
             console.log(`New role ${newRole.title} added!`);
@@ -165,10 +165,6 @@ const addAnEmployee = () => {
       if (err) console.log(err);
       console.log(roles);
       console.log(managers);
-    });
-
-  });
-  
         inquirer
         .prompt([{
             type: 'input',
@@ -184,17 +180,28 @@ const addAnEmployee = () => {
             type: 'list',
             name: 'role',
             message: 'What is the role of the employee?',
-            choices: "roles"
+            choices: roles
+            
         
           },
+          {
+            type: 'list',
+            name: 'manager',
+            message: "Who is the employee's manager?",
+            choices: managers
+
+          }
         ]).then((newEmployee) => {
-          db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES', [newEmployee.employeeFirstName, newEmployee.employeeLastName, newEmployee.role, newEmployee.manager], 
-          function (err, res) {
+          db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`, [newEmployee.employeeFirstName, newEmployee.employeeLastName, newEmployee.role, newEmployee.manager], 
+          function (err) {
             if (err) return console.log(err);
             console.table(newEmployee);
             startApp();
           })
         });
+      });
+
+    });
       }
   
     // Update employee Role
