@@ -2,6 +2,8 @@
 
 ## Resources 
 [GitHubLink]https://github.com/FocusKing/Employee-Track-Keeper
+
+[Screencastify-Link]https://drive.google.com/file/d/1waaEPPMngGEnArzPhULAYN3VCMBqSzwz/view
 ## Badges
 ![stayCLEAN](https://img.shields.io/badge/stay-CLEAN-blue)
 
@@ -52,7 +54,7 @@ SO THAT I can organize my thoughts and keep track of tasks I need to complete
 ## Credits
 List your collaborators, I was fortunate enough to get additional assistance from class mates either during office hours or during private study group sessions after class. I truly appreciate any help that I have received throughout this project.
 
-[Screencastify-Link]https://drive.google.com/file/d/1waaEPPMngGEnArzPhULAYN3VCMBqSzwz/view
+
 
 
 ## License
